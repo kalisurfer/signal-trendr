@@ -1,0 +1,633 @@
+  <!DOCTYPE html>
+  <!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" > <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+  <head>
+   <meta charset="utf-8">
+   <title><%= data[0].get('title') %> on WeArePlaying - Ranking games based on twitter buzz</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="<%= data[0].get('title') %> on WeArePlaying - we rank video games based on Twitter buzz">
+      <meta name="keywords" content="twitter,games,play,video games,buzz,trending" />
+   <meta name="author" content="">
+
+   <link href="/stylesheets/foundation.css" rel="stylesheet">
+   <link href="/stylesheets/style.css" rel="stylesheet">
+   <link href="/stylesheets/fontello.css" rel="stylesheet">
+   <link rel="shortcut icon" href="/images/icon.ico" />
+   <link href='http://fonts.googleapis.com/css?family=Dosis:400,500,600' rel='stylesheet' type='text/css'>
+
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
+
+
+   <script src="/js/vendor/custom.modernizr.js"></script>
+
+   <link rel="shortcut icon" href="/images/icon.ico" />
+   <style>
+    .masonry-brick { width: 192px; margin-right:5px; margin-left:5px; float: left;  }
+    #masonryContainer { width: 0 auto; }
+  </style>
+  </head>
+  <body class="<%= data[0].get('theme') %>" style="display:none;" onunload="">
+    <div class="row">
+      <div class="large-12 columns">
+
+        <!-- Header and Nav -->
+        <% include includes/header.ejs %>
+        <!-- End of Nav Section-->
+
+        <!-- Hero Area -->
+        <div class="row hero">
+          <div class="large-12 columns hero">
+            <div style="position: relative; top: 50px; left 15px;">
+              <div class="large-3 columns indexlabel <%= data[0].get('theme') %>">
+                <!--<h3><%= data[0].get('trendIndex') %></h3>-->
+              </div>
+              <div class="large-9 columns"></div>
+            </div>
+          </div>
+          <!-- End of Hero Area -->
+
+          <!-- game title + release date -->
+          <div class="row title">
+            <div class="small-12 columns">
+              <div class="small-5 columns"><h1><%= data[0].get('title') %></h1></div>
+              <div class="small-5 columns" style="text-align: right;">
+                <% if (!user || !user.username) { %>
+                <a href="/auth/twitter" class="medium button" rel="fade">Sign in to Track this game</a>
+                <% } else { %>
+                <% if (tracking.length){ %>
+                <a href="/details/untrack/<%= data[0].get('_id') %>" class="medium button success" rel="fade">You are Tracking this game</a>
+                <%} else {  %>
+                <a href="/details/track/<%= data[0].get('_id') %>" class="medium button transparent" rel="fade">Track this game.</a>
+                <% } %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <!-- end of game title + release date -->
+          
+          <!-- main content section -->
+        
+          <div class="section-container auto" data-section>
+            <section class="active">
+              <p class="title active" data-section-title><a href="#panel2">Latest</a></p>
+              <div class="content" data-section-content>
+                <div class="row">
+                <div id="masonryContainer">
+
+                  <div class="large-6 small-12 columns">
+                    <div class="panel official ">
+                      <div class="row">
+                        <div class="large-12 columns detailDescription" style="max-height: 192px; min-height: 172px; overflow-y: scroll"><h6><strong>Description</strong></h6><p><%= data[0].get('description') %></p></div>
+                      </div>
+                    </div>
+                  </div> 
+                
+                <%
+
+                function getMonth(data) {
+                  var MONTH = 0;
+
+                  if (data + 1 > 9) {
+                    MONTH = data;
+
+                    } else {
+                      MONTH = "0" + (data+1)
+                    }
+
+                    return MONTH
+                  }
+
+                  function translateDate(data) {
+                    var date1 = new String(data)
+                    var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                    var dYEAR = date1.slice(11, 15);
+                    var dMONTH = getMonth(MONTHS.indexOf(date1.slice(4,7)))
+                    var dDAY = date1.slice(8,10);
+
+                    console.log("new DATE IS " + dYEAR + "-" + dMONTH + "-" + dDAY)
+
+                    return  new Date(dYEAR, dMONTH, dDAY)
+
+                  }
+
+                  function determineTrend(previous){
+                    var diff = previous;
+
+                    if (diff == 0) {
+                      return "icon-ellipsis";
+                      } else if (diff > 0) {
+                        return "icon-down-big"
+
+                      } else if (diff < 0) {
+                          return "icon-up-big"
+                    }
+
+                  }
+
+                  function days_between(date2) {
+
+                    var today = new Date();
+
+
+                    var curDate = today.getDate();
+                    var curMonth = today.getMonth();
+                    var curYear = today.getFullYear();
+                    var launchDate_ms = new Date(translateDate(date2)).getTime();
+                    var today_ms = new Date(curYear, curMonth, curDate).getTime();
+                    var timeLeft = Math.round((launchDate_ms - today_ms)/86400000);
+
+
+                    if (timeLeft == 0){
+                      return "Launching Today";
+                      } else if (timeLeft < 0) {
+                        return "Launched";
+                      } else {
+                        return timeLeft + " Days Till Launch";
+                      }
+
+                  } %>
+
+
+                  <div class="large-3 small-6 columns">
+                    <div class="panel official">
+                     <div class="row genre">
+                      <div class="large-12 columns tweets" style="min-height: 192px;"> 
+                        <p><strong>Release Date</strong></p>
+                        <ul>                
+                          <li><% if (days_between(data[0].releaseDate) == "Launched") { %><h3 style="padding:0; margin:0;"><%= days_between(data[0].releaseDate) %></h3> <% } else { %> <h3 style="padding:0; margin:0;"><%= days_between(data[0].releaseDate) %></h3> <% } %>
+                            <% if (days_between(data[0].releaseDate) != "Launched") { %><p>&nbsp;</p><p><%= data[0].releaseDate %></p><% } %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+
+                <div class="large-3 small-6 columns">
+                  <div class="panel official">
+                    <div class="row genre tweets" style="min-height: 192px;">
+                      <p><strong>Genre</strong></p>
+                      <ul>
+                        <% for (var i=0; i < genre.length; i++){ %>
+                          <li><a href="/genres/<%= genre[i] %>" rel="fade"><%= genre[i] %></a></li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </div> 
+                </div>
+
+                <!-- first trailer /div -->
+                <%
+                function linkify(inputText) {
+                  var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+                  replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+                  replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+                  replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+                  replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+                  return replacedText;
+                }
+                %>
+                <% var tweetIndex = 0;
+                   var videoIndex = 0;            
+                %>
+                    <!-- hybrid row -->
+
+                <div class="large-3 small-6 columns">
+
+                  <% 
+                  var videoID = "";
+                  if (trailersLib.length > videoIndex) {
+                    videoID = trailersLib[videoIndex].get("videoId")
+                    title = trailersLib[videoIndex].get("title")
+                    %>
+
+
+                    <div class="row">
+                      <a href="#" data-reveal-id="myModal<%= videoIndex+1 %>">
+                        <div class="small-12 columns">
+                          <img src="https://i1.ytimg.com/vi/<%= videoID %>/hqdefault.jpg" > 
+                        </div>
+                      </a>
+                    </div>
+                    <!--<div class="row">-->
+                    <div class="panel daboxyt">
+                      <%= title %>
+
+                      <% videoIndex++;%>
+                    <!--</div>-->
+                    <%
+                  } else { %>
+                    <div class="panel">
+                      <div class="row">
+                        <!-- this is an ugly way linkify the tweets, but nothing better at this point -->
+                        <div class="large-12 columns tweets"><%- linkify(latest[tweetIndex].get('text')) %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns author">@<%= latest[tweetIndex].get('author') %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns date"><%= latest[tweetIndex].get('created_at') %></div>
+                      </div>
+                  <%
+                  tweetIndex++;
+                  } %>
+                  
+                    </div>
+                  </div>
+                  <!-- END first trailer /div -->
+
+                  <!-- second trailer -->
+
+                  <div class="large-3 small-6 columns">
+
+                  <% 
+                  var videoID = "";
+                  if (trailersLib.length > videoIndex) {
+                    videoID = trailersLib[videoIndex].get("videoId")
+                    title = trailersLib[videoIndex].get("title")
+                    %>
+
+
+                    <div class="row">
+                      <a href="#" data-reveal-id="myModal<%= videoIndex+1 %>">
+                        <div class="small-12 columns">
+                          <img src="https://i1.ytimg.com/vi/<%= videoID %>/hqdefault.jpg" > 
+                        </div>
+                      </a>
+                    </div>
+                    
+                    <div class="panel daboxyt">
+                      <%= title %>
+
+                      <% videoIndex++;
+                  } else { %>
+                    <div class="panel">
+                      <div class="row">
+                        <!-- this is an ugly way linkify the tweets, but nothing better at this point -->
+                        <div class="large-12 columns tweets"><%- linkify(latest[tweetIndex].get('text')) %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns author">@<%= latest[tweetIndex].get('author') %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns date"><%= latest[tweetIndex].get('created_at') %></div>
+                      </div>
+                  <%
+                  tweetIndex++;
+                  } %>
+                  
+                    </div>
+                  </div>
+
+                  <!-- END second trailer -->
+
+                  <!-- ranking -->
+
+                  <div class="large-3 small-6 columns">
+                    <div class="panel official">
+                      <div class="row genre">
+                        <div class="large-12 columns tweets">
+                          <ul>                
+                            <li>
+                              <h2 style="padding:0; margin:0;"><%= data[0].get('recent_rank') %><i class="<%= determineTrend(data[0].get('delta_1_recent_rank')) %>"></i></h2>
+                              <p>Game Ranking</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+
+                  <!-- END ranking -->
+
+                  <!-- third trailer -->
+
+                  <div class="large-3 small-6 columns">
+
+                  <% 
+                  var videoID = "";
+                  if (trailersLib.length > videoIndex) {
+                    videoID = trailersLib[videoIndex].get("videoId")
+                    title = trailersLib[videoIndex].get("title")
+                    %>
+
+
+                    <div class="row">
+                      <a href="#" data-reveal-id="myModal<%= videoIndex+1 %>">
+                        <div class="small-12 columns">
+                          <img src="https://i1.ytimg.com/vi/<%= videoID %>/hqdefault.jpg" > 
+                        </div>
+                      </a>
+                    </div>
+                    
+                    <div class="panel daboxyt">
+                      <%= title %>
+
+                      <% videoIndex++;
+                  } else { %>
+                    <div class="panel">
+                      <div class="row">
+                        <!-- this is an ugly way linkify the tweets, but nothing better at this point -->
+                        <div class="large-12 columns tweets"><%- linkify(latest[tweetIndex].get('text')) %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns author">@<%= latest[tweetIndex].get('author') %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns date"><%= latest[tweetIndex].get('created_at') %></div>
+                      </div>
+                  <%
+                  tweetIndex++;
+                  } %>
+                  
+                    </div>
+                  </div>
+
+                  <!-- END third trailer -->
+
+                  <!-- rest of tweets -->
+
+                  <% for (; tweetIndex < latest.length; tweetIndex++){ %>
+                  <div class="large-3 small-6 columns">
+
+                  <!-- find out if there is an image -->
+                  <% 
+                    var media = latest[tweetIndex].get("media");
+                    if (typeof media == "object") {
+                      var media_url = "";
+                      for (var i=0;i<media.length;i++) {
+                        if (media[i].media_url != "") {
+                          media_url = media[i].media_url;
+                          break;
+                        }
+                      }
+
+
+                      if (media_url != "") {
+                      %>
+                        <div class="row">
+                          <div class="small-12 columns"><img src="<%=media_url%>"></div>
+                        </div>
+                      <%
+                      }
+                    }%>
+
+                  <!-- END find out if there is an image -->
+
+                    <div class="panel">
+                     <div class="row">
+                       <!-- this is an ugly way linkify the tweets, but nothing better at this point -->
+
+                       <% 
+                       conversation = latest[tweetIndex].get('text');
+                       conversation = linkify(conversation)
+
+                       %>
+
+                       <div class="large-12 columns tweets"><%- conversation %></div>
+                     </div>
+                     <div class="row">
+                      <br />
+                      <hr />
+
+                    </div>
+                     <div class="row">
+                      <div class="large-12 columns author"><span style="text-transform:lowercase">Tweeted by:</span><br />@<%= latest[tweetIndex].get('author') %></div>
+                    </div>
+                    <div class="row">
+                      <div class="large-12 columns date"><%= latest[tweetIndex].get('created_at') %></div>
+                    </div>
+                    
+                  </div> 
+                  </div>
+                <% } %>
+
+                  <!-- END rest of tweets -->
+
+                
+            </section>
+
+            <section>
+              <p class="title" data-section-title><a href="#panel3">Editorial</a></p>
+              <div class="content" data-section-content>
+                <div class="row">
+                <div id="masonryContainer">
+                  <% for (var i=0; i < editorial.length; i++){ 
+
+                    conversation = editorial[i].get('text');
+                    conversation = linkify(conversation)
+
+
+                    %>
+                    <div class="large-3 small-6 columns">
+                      <div class="panel">
+                       <div class="row">
+                        <div class="large-12 columns tweets"><%- conversation %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns author">@<%= editorial[i].get('author') %></div>
+                      </div>
+                      <div class="row">
+                        <div class="large-12 columns date"><%= editorial[i].get('created_at') %></div>
+                      </div>
+                    </div> 
+                  </div>
+
+                  <% } %>
+                </div>
+                </div>
+              </section>
+
+            
+
+           
+
+            </div>
+            </div>
+          
+          <!-- end of main content section -->
+          <!-- footer are -->
+          <% include includes/footer.ejs %>
+          <!-- end of footer area -->
+
+
+
+
+
+          <script>
+          document.write('<script src=' +
+            ('__proto__' in {} ? '/js/vendor/zepto' : 'js/vendor/jquery') +
+            '.js><\/script>')
+          </script>
+
+          <script src="/js/foundation.min.js"></script>
+          <script src="/js/foundation/foundation.section.js"></script>
+          <script src="/js/foundation/foundation.topbar.js"></script>
+    <!--
+    
+    <script src="js/foundation/foundation.js"></script>
+    
+    <script src="js/foundation/foundation.alerts.js"></script>
+    
+    <script src="js/foundation/foundation.clearing.js"></script>
+    
+    <script src="js/foundation/foundation.cookie.js"></script>
+    
+    <script src="js/foundation/foundation.dropdown.js"></script>
+    
+    <script src="js/foundation/foundation.forms.js"></script>
+    
+    <script src="js/foundation/foundation.joyride.js"></script>
+    
+    <script src="js/foundation/foundation.magellan.js"></script>
+    
+    <script src="js/foundation/foundation.orbit.js"></script>
+    
+    <script src="js/foundation/foundation.reveal.js"></script>
+    
+    
+    <script src="js/foundation/foundation.tooltips.js"></script>
+    
+    
+    
+    <script src="js/foundation/foundation.interchange.js"></script>
+    
+    <script src="js/foundation/foundation.placeholder.js"></script>
+    
+  -->
+
+
+
+  <% for (var i=0; i < trailersLib.length; i++){ %>
+  <div id="myModal<%= i+1 %>" class="reveal-modal" style="background-color:#000;">
+    <div class="flex-video">
+      <iframe width="420" height="315" src="http://youtube.com/embed/<%= trailersLib[i].get("videoId") %>" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  <% } %>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51351-11', 'weareplaying.it');
+  ga('send', 'pageview');
+
+  </script>
+
+
+
+  <script>
+  $(document).foundation();
+  </script>
+
+
+
+  <!-- fade out scripts that acts on all rel="fade" -->
+  <script>
+  function newpage() {
+   window.location = newLocation
+  }
+
+  function Reload() {
+    try {
+      var e = document.getElementsByTagName("head")[0];
+      e && e.innerHTML && (e.innerHTML += " ")
+    } catch (t) {}
+  }
+  /iphone|ipod|ipad.*os 5/gi.test(navigator.appVersion) && (window.onpageshow = function (e) {
+    if (e.persisted) {
+      document.body.style.display = "none";
+      location.reload()
+    }
+  });
+  $(document).ready(function () {
+    $("body").css("display", "none");
+    $.fn.collapsable = function (e) {
+      return this.each(function () {
+        var e = $(this),
+        t = $(".main");
+                  /*
+                  e.click(function () {
+                      if (e.is(":visible")) {
+                          t.slideToggle("fast");
+                          t.toggleClass("clearfix")
+                      }
+                  }); 
+                  $(window).resize(function () {
+                      $(window).width() >= 600 && t.toggleClass("clearfix").show()
+                    })*/
+    })
+    };
+    var e = $(".menu-btn");
+    e.collapsable();
+    e.click(function (t) {
+      e.toggleClass("open")
+    });
+    $("body").fadeIn(600);
+    $("a[rel=fade]").click(function (e) {
+      e.preventDefault();
+      newLocation = this.href;
+      $("body").fadeOut(600, newpage)
+    })
+  });
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      window.scrollTo(0, 1)
+    }, 0)
+  });
+
+  /* function to make URLs clickable in returned tweets */
+  function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+          //URLs starting with http://, https://, or ftp://
+          replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+          replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+          //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+          replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+          replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+          //Change email addresses to mailto:: links.
+          replacePattern3 = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+          replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+          return replacedText;
+        }
+
+
+
+      $(function(){
+        var $container = $('#masonryContainer').masonry();
+          $container.masonry({  
+            itemSelector: '.columns'
+            , columnWidth: '.large-3'
+          });
+      });    
+        </script>
+
+        <style media="screen" type="text/css">
+        body {
+          /*display:none;*/
+          background-image: url("<%= data[0].get('heroURL') %>");
+          background-position: center top;
+          background-attachment: fixed;
+          background-clip: border-box;
+          position: relative;
+          background-repeat: no-repeat;
+
+        }
+        </style>
+
+
+      </body>
+      </html>

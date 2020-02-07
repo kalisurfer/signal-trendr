@@ -1,0 +1,47 @@
+<!-- Header and Nav -->
+          <nav class="top-bar">
+            <ul class="title-area">
+              <!-- Title Area -->
+              <li class="name">
+                <a href="/" rel="fade"><img src="/images/playingItLogo_smlAlpha.png"></a>
+              </li>
+              <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+         
+            <section class="top-bar-section">
+              <!-- Left Nav Section -->
+              <ul class="left">
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                  <a href="#">THE GAME LISTS</a>
+                    <ul class="dropdown">
+                      <li><a href="/list/main" rel="fade">Trending today</a></li>
+                      <li><a href="/list/kickstarter" rel="fade">Most Popular Kickstarter-Funded Games</a></li>
+                      <li><a href="/list/mobile" rel="fade">Most Popular Mobile Games</a></li>
+                      <!--<li><a href="/dateAdded" rel="fade">Just Added</a></li>
+                      <li><a href="/launching" rel="fade">Launching</a></li>
+                      <li><a href="/xboxonelaunch" rel="fade">Xbox One Launch Titles</a></li>
+                      <li><a href="/ps4launch" rel="fade">PS4 Launch Titles</a></li>-->
+                    </ul>
+                </li>    
+
+                <li><a href="/about">ABOUT</a></li>
+                  <% if ((!user) || (user.username == undefined)) { %>
+                <li>
+                    <a href="/auth/twitter">Sign in with Twitter</a>
+                  <% } else { %>
+                  <li><a href="/home" rel="fade" style="color: lightskyblue;">HOME</a></li>
+                  <li class="has-dropdown">
+                    <a href="">Hello, <%= user.username %>.</a>
+                    <ul class="dropdown">
+                      <li><a href="/logout" rel="fade">Logout</a></li>
+                    </ul>
+                  <% } %>
+                </li>
+              </ul>
+             </section>
+
+           </div>
+           </div>
+          </nav>
+      <!-- End of Nav Section-->

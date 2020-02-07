@@ -1,0 +1,7 @@
+numpy==1.7.1
+pymongo==2.6.2
+requests==2.2.1
+requests-oauthlib==0.4.0
+scipy==0.11.0
+simplejson==3.3.0
+cssselect==0.9.1

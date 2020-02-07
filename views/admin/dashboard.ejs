@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" ng-app="weareAdmin" html5enabled="true"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="weareAdmin" html5enabled="true"> <!--<![endif]-->
+  <head>
+     <meta charset="utf-8">
+      <title>we are playing it :|: dashboard</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+	    <link href="/stylesheets/foundation.css" rel="stylesheet">
+	    <link href="/stylesheets/style.css" rel="stylesheet">
+	    <link rel="shortcut icon" href="/images/icon.ico" />
+	    <link href='http://fonts.googleapis.com/css?family=Dosis:400,500,600' rel='stylesheet' type='text/css'>
+
+	    <script src="/js/vendor/custom.modernizr.js"></script>
+	    <style>
+	    	.adminlght {height: 340px;}
+	    	.adminlght ul {
+			  max-height: 300px; 
+			  overflow-y: scroll; 
+			  overflow-x: hidden;
+			}
+
+	    </style>
+
+	    <!-- angular start -->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+		<script type="text/javascript" src="/admin/js/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="/admin/js/app.js"></script>
+		<script type="text/javascript" src="/admin/js/controllers.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery.js"></script>
+	    <!-- angular end -->
+
+	</head>
+	<body>
+
+	<% include _header.ejs %>
+	<!-- START OF FIRST ROW -->
+	<div class="row">
+        <h2 class="bigTitle"><a href="#">THE BIG PICTURE</a></h2>
+      </div>
+
+	<div class="row">
+
+		<div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Most Mentions Now</strong></p>
+	              <ul ng-controller="mentionsCtrl">
+		              <li ng-repeat="game in mentions">{{ game.title }} - {{ game.day_sum }} / <strong>{{ game.tp }}</strong>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+		            <li>
+		            	<p><strong>Most Trending This Hour</strong></p>
+	              		<ul ng-controller="trendingCtrl">
+		              		<li ng-repeat="game in trending">{{ game.recent_rank }}  -  {{ game.title }} / <strong>{{ game.delta_1_recent_rank }}</strong></li>
+		             	</ul>
+	            	</li>
+	        	</ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Main Ranking Now</strong></p>
+	              <ul ng-controller="mainRankingsCtrl">
+		              <li ng-repeat="game in mainRankings">{{ game.title }} - {{ game.recent_rank }} / <strong>{{ game.delta_1_recent_rank }}</strong></li>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+         
+    </div>
+    <!-- END OF FIRST ROW -->
+
+    <!-- START OF SECOND ROW -->
+    <div class="row">
+
+		<div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Most Mentions Yesterday</strong></p>
+	              <ul ng-controller="yesterdayTrendingCtrl">
+		              <li ng-repeat="game in games">{{ game.title }} - {{ game.recent_rank }} / <strong>{{ game.delta_1_recent_rank }}</strong></li>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Most Trending Yesterday</strong></p>
+	              <ul>
+	              <ul ng-controller="yesterdayTrendingCtrl">
+		              <li ng-repeat="game in games">{{ game.title }} - {{ game.recent_rank }} / <strong>{{ game.delta_24_recent_rank }}</strong></li>
+	              </ul>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Newest editorial</strong></p>
+	               <ul ng-controller="recentEditorialsCtrl">
+		              <li ng-repeat="tweet in tweets">{{ tweet.author }} - {{ tweet.text }}<hr /></li>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+         
+    </div>
+
+    <!-- END OF SECOND ROW -->
+    <div class="row">
+        <h2 class="bigTitle"><a href="#">NOTEWORTHY</a></h2>
+      </div>
+
+     <!-- START OF THIRD ROW -->
+    <div class="row">
+
+		<div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Most retweeted edit tweets now</strong></p>
+	              <p>list them out</p>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Most retweeted fan tweets now</strong></p>
+	              <p>list them out</p>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-24 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Newest editorial</strong></p>
+	               <ul>
+
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+         
+    </div>
+
+    <!-- END OF THIRD ROW -->
+
+    <div class="row">
+        <h2 class="bigTitle"><a href="#">THE CONTENT</a></h2>
+      </div>
+
+     <!-- START OF FOURTH ROW -->
+    <div class="row">
+
+		<div class="large-4 small-8 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>New Events</strong></p>
+	              <ul ng-controller="recentEventsCtrl">
+	              	<li ng-repeat="event in events">
+	              	<a href="/details/{{ event.game.id }}" target="_new">{{ event.game.title }}</a> -
+	              	<strong>{{ event.description }}</strong>
+	              	<a href="https://twitter.com/share" class="twitter-share-button" 
+	              	data-lang="en"
+	              	data-count="none"
+	              	data-url="http://weareplaying.it/details/{{ event.game.id }}"
+	              	data-via="weareplayingit"
+	              	data-text="{{ event.game.title }}{{event.twitterdescription}} on weareplayingit:"
+	              	>Tweet</a>
+<hr /></li>
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-8 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Latest Trailers</strong></p>
+	              <ul ng-controller="recentVideosCtrl">
+	              		<li ng-repeat="video in videos"><a href="/details/{{ video.game.id }}">{{ video.game.title }}</a> - <strong><a href="http://youtube.com/watch?v={{ video.videoId }}" target="_new">{{ video.title }}</a></strong><hr /></li>
+
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+	    <div class="large-4 small-8 columns">
+	      <div class="panel official dabox adminlght">
+	         <div class="row genre admin">
+	          <div class="large-12 columns tweets"> 
+	            <ul>
+	        
+	            <li>
+	              <p><strong>Newest editorial</strong></p>
+	               <ul>
+	              	
+	              </ul>
+	            </li>
+	        
+	          </ul>
+	          </div>
+	        </div>
+	      </div> 
+	    </div>
+
+         
+    </div>
+
+    <!-- END OF FOURTH ROW -->
+
+	
+
+
+
+	<script>
+	  document.write('<script src=' +
+	  ('__proto__' in {} ? '/js/vendor/zepto' : '/js/vendor/jquery') +
+	  '.js><\/script>')
+	  </script>
+	  
+	  <script src="/js/foundation.min.js"></script>
+	  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	  <script src="/js/foundation/foundation.section.js"></script>
+	  <script src="/js/foundation/foundation.topbar.js"></script>
+	  <script src="/js/Chart.js"></script>
+
+	   <script>
+	    $(document).foundation();
+	  </script>
+	  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";setTimeout(function() {fjs.parentNode.insertBefore(js,fjs);},1000);}}(document,"script","twitter-wjs");</script>
+
+	 
+	</body>
+</html>

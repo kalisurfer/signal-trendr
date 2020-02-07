@@ -1,0 +1,73 @@
+  <!-- footer are -->
+
+    <%
+      function determineIndexRun() {
+        var d = new Date();
+        var m = d.getMinutes();
+        var l = 0;
+
+        // is this a new hour
+        if (m <= 25) {
+          l = 25 - m;
+          return l
+        } else {
+          l = 60 - (m-25);
+          return l;
+        }
+      }
+    %>
+    <div class="prefooter">
+      <div class="row" style="padding-top:10px; padding-bottom:10px;">
+        <div class="small-8 columns">
+          &nbsp;
+        </div>
+        <div class="small-4 columns"><br/>
+         <h7>Rankings will be updated in <%= determineIndexRun() %> minutes.</h7>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="row">
+        <div class="small-4 columns">
+          <h5>The Game Lists</h5>
+          <ul>
+              <li><a href="/list/main" rel="fade">Trending this hour</a></li>
+              <li><a href="/list/kickstarter" rel="fade">Most talked about Kickstarter-funded game</a></li>
+              <li><a href="//list/mobile" rel="fade">Most talked about mobile game</a></li>
+              <!--<li><a href="/xboxonelaunch" rel="fade">Xbox One Launch Titles</a></li>
+              <li><a href="/ps4launch" rel="fade">PS4 Launch Titles</a></li>-->
+          </ul>
+        </div>
+        <div class="small-4 columns">
+          <h5>The Other Stuff</h5>
+          <ul>
+              <li><a href="/about" rel="fade">About WeArePlayingIt</a></li>
+              <li><a href="https://plus.google.com/106749096796237814979" rel="publisher">Google+</a></li>
+              <!--<li><a href="/termsofuse" rel="fade">Terms of Use</a></li>
+              <li><a href="/privacypolicy" rel="fade">Privacy Policy</a></li>-->
+          </ul>
+        </div>
+        
+        <div class="small-4 columns">
+          <h4>Submit a Game</h4><p>Don't see a game? Submit it to us</p>
+            <form data-abide name="gameSuggestions" action="/forms/suggestion" method="post">
+             <div class="large-12 columns">
+                <label>Game Title<small>required</small></label>
+                <input type="text" placeholder="enter game title" required name="game">
+              </div>
+              <div class="large-12 columns">
+                <label>Your Email<small>required</small></label>
+                <input type="email" placeholder="enter your email" required name="email">
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          <p></p>
+        </div>
+      </div>
+       <div class="row">
+        <div class="small-12 columns">
+          <p>© 2013 WEAREPLAYING.IT. ALL RIGHTS RESERVED</p>
+        </div>
+      </div>
+    </div>
+  <!-- end of footer area -->

@@ -1,0 +1,290 @@
+
+
+   <%
+
+              function getMonth(data) {
+                var MONTH = 0;
+
+                if (data + 1 > 9) {
+                  MONTH = data;
+
+                } else {
+                  MONTH = "0" + (data+1)
+                }
+
+                return MONTH
+              }
+
+              function translateDate(data) {
+                var date1 = new String(data)
+                var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Sep", "Oct", "Nov", "Dec"]
+                var dYEAR = date1.slice(11, 15);
+                var dMONTH = getMonth(MONTHS.indexOf(date1.slice(4,7)))
+                var dDAY = date1.slice(8,10);
+
+                return  new Date(dYEAR, dMONTH, dDAY)
+
+              }
+
+              function days_between(date2) {
+
+                var today = new Date();
+                var curDate = today.getDate();
+                var curMonth = today.getMonth();
+                var curYear = today.getFullYear();
+
+
+                var launchDate_ms = new Date(translateDate(date2)).getTime();
+
+                var today_ms = new Date(curYear, curMonth, curDate).getTime();
+
+                var timeLeft = Math.round((launchDate_ms - today_ms)/86400000);
+
+
+                  if (timeLeft == 0){
+                      return "Launching Today";
+                    } else if (timeLeft < 0) {
+                      return "Launched";
+                    } else {
+                      return timeLeft + " Days Till Launch";
+                    }
+
+              }
+
+
+            %>
+   <div class="row">
+
+             <div class="large-3 small-6 columns">
+              <div class="panel official dabox">
+                 <div class="row genre">
+                  <div class="large-12 columns tweets"> 
+                    <ul>
+                
+                    <li>
+                      <p><strong>Latest Events</strong></p>
+                      <p>a number of events</p>
+                    </li>
+                
+                  </ul>
+                  </div>
+                </div>
+              </div> 
+            </div>
+
+            <div class="large-3 small-6 columns">
+              <div class="panel official dabox">
+                 <div class="row genre">
+                  <div class="large-12 columns tweets"> 
+                    <ul>
+                
+                    <li><p><strong>Rank</strong></p>
+                      <h2><%= rankings[0].get('rank') %></h2>
+                    </li>
+                    <li><p>Previous Rank</p>
+                      <h3><%= rankings[rankings.length - 1].get('recent_rank') %></h3>
+                    </li>
+                
+                  </ul>
+                  </div>
+                </div>
+              </div> 
+            </div>
+
+            <div class="large-6 small-12 columns">
+              <div class="panel official dabox">
+                 <div class="row">
+                  <div class="large-12 columns detailDescription" style="max-height: 192px; overflow-y: scroll">
+                    <p style="text-align:center;"><strong>Mentions</strong></p>
+                    <canvas id="myChart1" width="350" height="160"></canvas>
+                  </div>
+                </div>
+              </div> 
+            </div>
+  </div>
+   <div class="row">
+    <% for (var l=0; l < 2; l++){ %>
+        <div class="large-3 small-6 columns">
+          <div class="panel">
+             <div class="row">
+              <div class="large-12 columns tweets"><%= tweets[l].get('text') %></div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns author">@<%= tweets[l].get('author') %></div>
+            </div>
+             <div class="row">
+              <div class="large-12 columns date"><%= tweets[l].get('created_at') %></div>
+            </div>
+          </div> 
+        </div>
+
+          <% } %>
+
+          <div class="large-3 small-6 columns">
+              <div class="panel official dabox">
+                 <div class="row genre">
+                  <div class="large-12 columns tweets"> 
+                    <ul>
+                
+                    <li><% if (days_between(data[0].releaseDate) == "Launched") { %><h3 style="padding:0; margin:0;"><%= days_between(data[0].releaseDate) %></h3> <% } else { %> <h3 style="padding:0; margin:0;"><%= days_between(data[0].releaseDate) %></h3> <% } %>
+                      <% if (days_between(data[0].releaseDate) != "Launched") { %><p>&nbsp;</p><p><%= data[0].releaseDate %></p><% } %>
+                    </li>
+                
+                  </ul>
+                  </div>
+                </div>
+              </div> 
+            </div>
+
+            <div class="large-3 small-6 columns">
+                <div class="panel">
+                   <div class="row">
+                    <div class="large-12 columns tweets"><%= tweets[2].get('text') %></div>
+                  </div>
+                  <div class="row">
+                    <div class="large-12 columns author">@<%= tweets[2].get('author') %></div>
+                  </div>
+                   <div class="row">
+                    <div class="large-12 columns date"><%= tweets[2].get('created_at') %></div>
+                  </div>
+                </div> 
+              </div>
+
+    </div>
+
+    <div class="row">
+    <% for (var l=3; l < 5; l++){ %>
+        <div class="large-3 small-6 columns">
+          <div class="panel">
+             <div class="row">
+              <div class="large-12 columns tweets"><%= tweets[l].get('text') %></div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns author">@<%= tweets[l].get('author') %></div>
+            </div>
+             <div class="row">
+              <div class="large-12 columns date"><%= tweets[l].get('created_at') %></div>
+            </div>
+          </div> 
+        </div>
+
+          <% } %>
+
+          <div class="large-3 small-6 columns">
+              <div class="panel official dabox">
+                 <div class="row genre">
+                  <div class="large-12 columns tweets"> 
+                    <ul>
+                
+                    <li>
+                      <a href="/details/<%= rankings[0].get('game') %>" class="medium button transparent" rel="fade">Game Details</a>
+                    </li>
+                    <li>
+                      <a href="/details/untrack/<%= rankings[0].get('game') %>" class="medium button transparent" rel="fade">UnTrack this game.</a>
+                    </li>
+                
+                  </ul>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            
+            <div class="large-3 small-6 columns">
+                <div class="panel">
+                   <div class="row">
+                    <div class="large-12 columns tweets"><%= tweets[5].get('text') %></div>
+                  </div>
+                  <div class="row">
+                    <div class="large-12 columns author">@<%= tweets[5].get('author') %></div>
+                  </div>
+                   <div class="row">
+                    <div class="large-12 columns date"><%= tweets[5].get('created_at') %></div>
+                  </div>
+                </div> 
+              </div>
+
+    </div>
+
+    <div class="row">
+    <% for (var l=6; l < tweets.length; l++){ %>
+        <div class="large-3 small-6 columns">
+          <div class="panel">
+             <div class="row">
+              <div class="large-12 columns tweets"><%= tweets[l].get('text') %></div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns author"><a href="http://twitter.com/<%= tweets[l].get('author') %>" target="_blank">@<%= tweets[l].get('author') %></a></div>
+            </div>
+             <div class="row">
+              <div class="large-12 columns date"><%= tweets[l].get('created_at') %></div>
+            </div>
+          </div> 
+        </div>
+
+          <% } %>
+            
+    </div>
+
+    <% 
+
+    var label = [];
+    var points = [];
+
+    for (i=0; i<rankings.length; i++)
+      {
+        label[i] = i;
+        points[i] = rankings[i].trendIndex;
+      }
+
+    %>
+
+   <script type="text/javascript">
+
+    var options = {
+      //Boolean - If we want to override with a hard coded scale
+      //scaleOverride : true,
+      
+      //** Required if scaleOverride is true **
+      //Number - The number of steps in a hard coded scale
+      //scaleSteps : 4,
+      //Number - The value jump in the hard coded scale
+      //scaleStepWidth : -1,
+      //Number - The scale starting value
+      //scaleStartValue : 5,
+      //Boolean - If we show the scale above the chart data     
+      scaleOverlay : true,
+      //String - Scale label font colour  
+      scaleFontColor : "#888",  
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth : 10,
+
+      //Number - Scale label font size in pixels  
+      scaleFontSize : 10,
+      
+      ///Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines : false,
+
+
+    };
+    var data = {
+      labels : [<%= label %>],
+      datasets : [
+        {
+          fillColor : "#87cefa",
+          strokeColor : "#333333",
+          pointColor : "#FFFFFF",
+          pointStrokeColor : "#333333",
+          data : [<%= points %>]
+        },
+      ]
+    } 
+
+    function sayHello() {
+      alert("say Hello")
+    }
+
+    var ctx = document.getElementById("myChart1").getContext("2d");
+    var myNewChart = new Chart(ctx).Line(data, options);
+
+
+   </script>
