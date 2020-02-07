@@ -1,0 +1,398 @@
+body {
+  font: 14px "Dosis", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+.icon-font {
+  color: #030303;
+}
+.hero {
+  min-height: 300px;
+}
+.noroom,
+.noroom div,
+.noroom .span3 {
+  padding: 1px;
+  margin: 1px;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Dosis';
+  font-weight: 600;
+}
+h1 {
+  font-size: 2em;
+  color: #fff;
+}
+.missionStatement h4 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-weight: 500;
+  line-height: 36px;
+  color: #555;
+}
+.tweets h2 {
+  font-size: 5em;
+}
+.gametitle {
+  font-size: 12px;
+}
+.itemsmall .gametitle {
+  font-size: 0.75em;
+}
+.gametitle-small {
+  font-size: 9px;
+}
+.pageHeader {
+  padding-top: 40px;
+}
+.space {
+  padding-top: 10px;
+}
+.official {
+  background-color: #87cefa;
+}
+.top-bar {
+  background-color: transparent;
+}
+.trailers {
+  list-style-type: none;
+  background-color: rgba(101,101,101,0.7);
+}
+.trailers ul {
+  max-height: 252px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.trailers li {
+  padding-bottom: 10px;
+  font-size: 0.8em;
+}
+.trailers h6 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Dosis';
+  font-weight: 600;
+  font-size: 1.25em;
+}
+/* THEMES */
+.dark .trailers,
+.dark .trailers h6 {
+  color: #fff;
+}
+.dark {
+  background-color: #000;
+  color: #1a1a1a;
+}
+.dark .gameTitle,
+h4 {
+  color: #fefefe;
+}
+/*black background but dark writting as well*/
+.dark2 .trailers,
+.dark2 .trailers h6 {
+  color: #333;
+}
+.dark2 {
+  background-color: #000;
+  color: #333;
+}
+.dark2 .gameTitle,
+.dark2 h4 {
+  color: #333;
+}
+/* white */
+.light .trailers,
+.light .trailers h6 {
+  color: #fff;
+}
+.light {
+  color: #fff;
+}
+.light .gameTitle,
+.light h4 {
+  color: #fff;
+}
+.light .tweets {
+  color: #333;
+}
+.light2 {
+  color: #333;
+}
+.light2 .gameTitle,
+.light2 h4 {
+  color: #333;
+}
+.c21d25 {
+  background-color: #c21d25;
+  color: #333;
+}
+.t353535 {
+  background-color: #353535;
+  color: #fff;
+}
+.t232432 {
+  background-color: #232432;
+  color: #333;
+}
+.t232432 .trailers,
+.t232432 .trailers h6 {
+  color: #fff;
+}
+.t33003c {
+  background-color: #33003c;
+  color: #fff;
+}
+.t33003c .trailers,
+.t33003c .trailers h6 {
+  color: #fff;
+}
+.bab0a6 {
+  background-color: #bab0a6;
+  color: #333;
+}
+.bab0a6 .title,
+.bab0a6 .title h4 {
+  color: #333;
+}
+/* END OF THEMES */
+.indexlabel {
+  background-color: transparent;
+}
+.gamedescription,
+.gamedescription p {
+  font-size: 0.7em;
+}
+.gamedescription h6,
+.gamedescription ul {
+  font-size: 0.85em;
+  list-style-type: none;
+}
+.genre ul {
+  list-style-type: none;
+}
+.dabox {
+  height: 240px;
+}
+.daboxyt {
+  height: 95px;
+}
+.tweets {
+  font-size: 0.9em;
+  text-transform: uppercase;
+  min-height: 1px;
+}
+.detailDescription {
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+.author {
+  text-align: left;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: #666;
+}
+.date {
+  text-align: left;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  color: #666;
+}
+.gameTitle {
+  text-align: left;
+}
+.genre {
+  text-align: center;
+}
+.genre .admin {
+  text-align: left;
+}
+.admin li {
+  text-align: left;
+}
+.bigTitle {
+  text-align: center;
+  text-transform: uppercase;
+  color: #666;
+  font-size: 3em;
+  padding-top: 20px;
+}
+.moreTitle,
+.moreTitle a {
+  text-align: center;
+  text-transform: uppercase;
+  color: #666;
+  padding-bottom: 10px;
+}
+.moreTitle a:hover {
+  color: #333;
+}
+.equalheigth {
+  height: 250px;
+}
+.lightgray {
+  background-color: #e6e6e6;
+}
+.darkgray {
+  background-color: #d9d9d9;
+}
+/* start of chrome like cards */
+.item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+.item {
+  height: 250px;
+}
+.item a {
+  text-decoration: none;
+  color: #000;
+}
+.item-billboard,
+.item-detail {
+  height: 180px;
+}
+.item-billboard {
+  margin-top: 0;
+  background: #fff;
+}
+.item-billboard h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #262626;
+  font-family: "Open Sans", arial, sans-serif;
+}
+.item-detail {
+  background: #ececec;
+  padding: 10px;
+}
+.item-billboard {
+  margin-top: 0;
+  background: #fff;
+/* add animations! */
+  -webkit-transition: margin-top 0.5s -0.04s;
+  -moz-transition: margin-top 0.5s -0.04s;
+  -o-transition: margin-top 0.5s -0.04s;
+  -ms-transition: margin-top 0.5s -0.04s;
+  transition: margin-top 0.5s -0.04s;
+}
+.item:hover .rectangle {
+  margin-top: -205px;
+}
+/* animate on hover */
+.item:hover .item-billboard {
+  margin-top: -205px;
+}
+/* end of chrome like cards */
+/* start of chrome like small cards */
+.itemsmall {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+.itemsmall {
+  height: 175px;
+}
+.itemsmall a {
+  text-decoration: none;
+  color: #000;
+}
+.itemsmall-billboard,
+.itemsmall-detail {
+  height: 140px;
+}
+.itemsmall-billboard {
+  margin-top: 0;
+  background: #fff;
+}
+.itemsmall-billboard h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #262626;
+  font-family: "Open Sans", arial, sans-serif;
+}
+.itemsmall-detail {
+  background: #ececec;
+  padding: 10px;
+}
+.itemsmall-billboard {
+  margin-top: 0;
+  background: #fff;
+/* add animations! */
+  -webkit-transition: margin-top 0.5s -0.04s;
+  -moz-transition: margin-top 0.5s -0.04s;
+  -o-transition: margin-top 0.5s -0.04s;
+  -ms-transition: margin-top 0.5s -0.04s;
+  transition: margin-top 0.5s -0.04s;
+}
+/* animate on hover */
+.itemsmall:hover .itemsmall-billboard {
+  margin-top: -180px;
+}
+.itemsmall:hover .rectangle {
+  margin-top: -180px;
+}
+/* animate on hover */
+.nohover:hover .itemsmall-billboard {
+  margin-top: 0;
+}
+/* end of chrome like small cards */
+/* overridding these to make the navigation appear on mobile */
+.top-bar .toggle-topbar.menu-icon a span {
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 16px;
+  height: 0;
+  -webkit-box-shadow: 0 10px 0 1px #808080, 0 16px 0 1px #808080, 0 22px 0 1px #808080;
+  box-shadow: 0 10px 0 1px #808080, 0 16px 0 1px #808080, 0 22px 0 1px #808080;
+  color: #808080;
+}
+#game-cycle {
+  position: absolute;
+  top: 0;
+  let: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.bio h4 {
+  color: #555;
+}
+.bio p {
+  font-size: 1.25em;
+}
+.bio {
+  padding-top: 40px;
+}
+.previous {
+  position: absolute;
+  left: 10px;
+  top: 150px;
+}
+.next {
+  position: absolute;
+  right: 10px;
+  top: 150px;
+}
+.contents {
+  position: absolute;
+  top: 80px;
+  left: 60px;
+  right: 60px;
+  bottom: 60px;
+  background: #fff;
+  border: 1px solid #000;
+}
+.footer {
+  background: #000;
+  min-height: 300px;
+  width: 100%;
+  color: #333;
+  position: absolute;
+}
